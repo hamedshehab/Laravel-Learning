@@ -28,6 +28,8 @@ Route::get('/posts', [PostController::class,'index'])->name('posts.index');
 route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 
 route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+
+route::get('/posts/edit', [PostController::class, 'edit'])->name('posts.edit');
 //Route::get('/test', [TestController::class,'firstAction']);
 //Route::get('/greet', [TestController::class,'greet']);
 

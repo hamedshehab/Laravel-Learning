@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') Create @endsection
+@section('title') Edit @endsection
 
 @section('content')
 
@@ -26,7 +26,7 @@
             <option value="3">Omar</option>
           </select>
 
-        <button class="btn btn-primary mt-4" type="submit">Submit form</button>
+        <button class="btn btn-primary mt-4" type="submit">Update</button>
         
     </FORM>
 </div>

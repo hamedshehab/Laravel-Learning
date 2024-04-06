@@ -30,7 +30,25 @@ class PostController extends Controller //StudlyCase
 
     public function store()
     {
-        return to_route('posts.index');
+
+        // $request = request();
+        // dd($request->title);
+
+        $data = request()->all();  //? Method 1 of getting data from form
+
+        $title = request()->title;
+        $description = request()->description;
+        $postCreator = request()->postCreator;  //? Method 2 of getting data from form
+        
+        // dd($title, $description,$postCreator);
+
+
+        return redirect()->route('posts.index');
+    }
+
+    public function edit()
+    {
+        return view('posts.edit');
     }
     
     // public function firstAction()//camelCase
