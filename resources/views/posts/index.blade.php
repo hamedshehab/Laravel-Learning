@@ -27,7 +27,12 @@
             <td>
               <a href="{{route('posts.show', $post['id'])}}" class="btn btn-info" href="show">View</a>
               <a href="{{route('posts.edit', $post['id'])}}" class="btn btn-primary">Edit</a>
-              <a class="btn btn-danger">Delete</a>
+              <form style="display: inline;" method="POST" action="{{route('posts.destroy', $post['id'])}}">
+                @csrf
+                @method('delete')              
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delte the row?')">Delete</button>
+
+              </form>
             </td>
           </tr>
           @endforeach

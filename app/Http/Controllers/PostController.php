@@ -51,6 +51,23 @@ class PostController extends Controller //StudlyCase
         return view('posts.edit');
     }
     
+
+    public function update()
+    {
+        $title = request()->title;
+        $description = request()->description;
+        $postCreator = request()->postCreator;  
+        
+        //dd($title, $description,$postCreator);
+
+
+        return redirect()->route('posts.show', 1);
+    }
+
+    public function destroy()
+    {
+        return redirect()->route('posts.index');
+    }
     // public function firstAction()//camelCase
     // {  
     // $name = 'Ahmed';

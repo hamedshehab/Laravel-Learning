@@ -5,8 +5,9 @@
 @section('content')
 
 <div class="mx-5">
-    <FORM method="POST" action="{{route('posts.store')}}">
-        @csrf 
+    <FORM method="POST" action="{{route("posts.update", 1)}}">
+             @csrf 
+             @method('PUT')
         {{-- ! IT IS MANDATORY TO PUT CSRF TO PREVENT SECURITY VULNERABILITIES --}}
         <div class="form-group mb-3">
             <label for="title">Title</label>

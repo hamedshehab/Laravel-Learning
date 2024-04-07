@@ -29,7 +29,6 @@ route::get('/posts/create', [PostController::class, 'create'])->name('posts.crea
 
 route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
-route::get('/posts/edit', [PostController::class, 'edit'])->name('posts.edit');
 //Route::get('/test', [TestController::class,'firstAction']);
 //Route::get('/greet', [TestController::class,'greet']);
 
@@ -39,7 +38,11 @@ route::get('/posts/edit', [PostController::class, 'edit'])->name('posts.edit');
 
 Route::get('/posts/{post}', [PostController::class,'show'])->name('posts.show');
 
+route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 
+route::put('/posts/{post}',[PostController::class, 'update'])->name('posts.update');
+
+route::delete('/posts/{post}', [PostController::class,'destroy'])->name('posts.destroy');
 
 //1- define a new route so the user can access it through browser
 //2- define controller that reders a view

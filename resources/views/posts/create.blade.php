@@ -26,7 +26,7 @@
             <option value="3">Omar</option>
           </select>
 
-        <button class="btn btn-primary mt-4" type="submit">Submit form</button>
+        <button class="btn btn-success mt-4" type="submit">Submit form</button>
         
     </FORM>
 </div>
