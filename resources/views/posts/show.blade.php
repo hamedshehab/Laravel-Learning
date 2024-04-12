@@ -10,11 +10,12 @@
         <div class="card-header">Post Info</div>
         <div class="card-body text-dark">
           <h5 class="card-title">{{$post['title']}}</h5>
-          <p class="card-text">Description: PHP is trash ngl.</p>
+          <p class="card-text">Description: {{$post['description']}}</p>
         </div>
       </div>
     </div>
     
+
 
     <div class="d-flex justify-content-center col-sm-12">
       <div class="card border-dark mb-3 mt-4 col-sm-8">

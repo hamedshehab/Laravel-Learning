@@ -4,23 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Post;
+
 class PostController extends Controller //StudlyCase
 {
 
     public function index()
     {
-        $allPosts = [
-            ["id" => 1,"title"=> "PHP","posted_by"=> "Hamed","created_at"=> "2024-03-31 07:00:00"],
-            ["id" => 2,"title"=> "HTML","posted_by"=> "Anas","created_at"=> "2023-03-31 07:00:00"],
-            ["id" => 3,"title"=> "Javasctipt","posted_by"=> "Hussein","created_at"=> "2022-03-31 07:00:00"],
-        ];
-        return view("posts.index", ['posts' => $allPosts]);
+        //select * from posts
+        $postsFromDB = Post::all();// collection object
+
+        // $allPosts = [
+        //     ["id" => 1,"title"=> "PHP","posted_by"=> "Hamed","created_at"=> "2024-03-31 07:00:00"],
+        //     ["id" => 2,"title"=> "HTML","posted_by"=> "Anas","created_at"=> "2023-03-31 07:00:00"],
+        //     ["id" => 3,"title"=> "Javasctipt","posted_by"=> "Hussein","created_at"=> "2022-03-31 07:00:00"],
+        // ];
+        return view("posts.index", ['posts' => $postsFromDB]);
     }
 
     public function show($postid)
     {
-        $singlePost = ['id' => 1, 'title'=> 'PHP','posted_by'=> 'Hamed','created_at'=> '2024-03-31 07:00:00'];
-        return view('posts.show',['post' => $singlePost]);
+        //$post = Post::find($postid);  //not query like
+        $post = Post::where('id', $postid)->first(); //query like... you can apply filters... gives you the first record
+        //$post = Post::where('id', $postid)->get(); //gives you more than one record
+        
+        return view('posts.show',['post' => $post]);
     }
 
     public function create()
