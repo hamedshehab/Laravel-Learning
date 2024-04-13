@@ -19,11 +19,11 @@
         </div>
     
         <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Post Creator</label>
+
         <select name="postCreator" class="form-select" aria-label="Default select example">
-            <option selected>Hamed</option>
-            <option value="1">Anas</option>
-            <option value="2">Hussein</option>
-            <option value="3">Omar</option>
+            @foreach ($users as $user)
+                <option  value="{{$user['id']}}">{{$user['name']}}</option>
+            @endforeach
           </select>
 
         <button class="btn btn-success mt-4" type="submit">Submit form</button>

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 
+use App\Models\User;
+
+
+
 class PostController extends Controller //StudlyCase
 {
 
@@ -22,18 +26,23 @@ class PostController extends Controller //StudlyCase
         return view("posts.index", ['posts' => $postsFromDB]);
     }
 
-    public function show($postid)
+    public function show(Post $post) //type hinting
     {
-        //$post = Post::find($postid);  //not query like
-        $post = Post::where('id', $postid)->first(); //query like... you can apply filters... gives you the first record
+        //$post = Post::findOrFail($postid);  //not query like
+        //$post = Post::where('id', $postid)->first(); //query like... you can apply filters... gives you the first record
         //$post = Post::where('id', $postid)->get(); //gives you more than one record
         
+        // if ($post->id == null) {
+        //     return redirect()->route('posts.index');
+        // }
+
         return view('posts.show',['post' => $post]);
     }
 
     public function create()
     {
-        return view('posts.create');
+        $users = User::all();
+        return view('posts.create', ['users'=> $users]);
     }
 
     public function store()
@@ -43,37 +52,64 @@ class PostController extends Controller //StudlyCase
         // dd($request->title);
 
         $data = request()->all();  //? Method 1 of getting data from form
-
-        $title = request()->title;
-        $description = request()->description;
-        $postCreator = request()->postCreator;  //? Method 2 of getting data from form
+        // $title = request()->title;
+        // $description = request()->description;
+        // $postCreator = request()->postCreator;  //? Method 2 of getting data from form
         
         // dd($title, $description,$postCreator);
+        
+        // $post = new Post;
 
+        // $post->title = $data['title'];
+        // $post->description = $data['description'];
+
+        // $post->save();
+
+        Post::create(
+            [
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'xyz' => 'some value', //* this will get ignored by the framework because it is not in the fillale property
+            ]
+            );
 
         return redirect()->route('posts.index');
     }
 
-    public function edit()
+    public function edit(Post $post)
     {
-        return view('posts.edit');
+        $users = User::all();
+        return view('posts.edit', ['users'=> $users,'post'=> $post]);
     }
     
 
-    public function update()
+    public function update($postid)
     {
+ 
+
         $title = request()->title;
         $description = request()->description;
         $postCreator = request()->postCreator;  
         
+        $post = Post::find($postid);
+  
+        $post->update([
+            'title'=> $title,
+            'description'=> $description,
+        ]);
+
         //dd($title, $description,$postCreator);
 
 
-        return redirect()->route('posts.show', 1);
+        return redirect()->route('posts.show', $post->id);
     }
 
-    public function destroy()
+    public function destroy($postid)
     {
+        $post = Post::find($postid);
+        $post->delete();
+
+        //Post::where('title', $title)->delete(); //? to delete all posts with a certain title
         return redirect()->route('posts.index');
     }
     // public function firstAction()//camelCase
