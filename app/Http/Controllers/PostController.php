@@ -35,8 +35,9 @@ class PostController extends Controller //StudlyCase
         // if ($post->id == null) {
         //     return redirect()->route('posts.index');
         // }
+        //$user = User::where('id', $post->user_id)->first();
 
-        return view('posts.show',['post' => $post]);
+        return view('posts.show',['post' => $post]);//,'user' => $user
     }
 
     public function create()
@@ -69,7 +70,7 @@ class PostController extends Controller //StudlyCase
             [
                 'title' => $data['title'],
                 'description' => $data['description'],
-                'xyz' => 'some value', //* this will get ignored by the framework because it is not in the fillale property
+                'user_id' => $data['post_creator'], //* this will get ignored by the framework because it is not in the fillale property
             ]
             );
 
@@ -89,13 +90,14 @@ class PostController extends Controller //StudlyCase
 
         $title = request()->title;
         $description = request()->description;
-        $postCreator = request()->postCreator;  
+        $post_creator = request()->post_creator;  //?FORM
         
-        $post = Post::find($postid);
+        $post = Post::find($postid);              //?Database
   
         $post->update([
             'title'=> $title,
             'description'=> $description,
+            'user_id'=> $post_creator,
         ]);
 
         //dd($title, $description,$postCreator);
@@ -109,7 +111,7 @@ class PostController extends Controller //StudlyCase
         $post = Post::find($postid);
         $post->delete();
 
-        //Post::where('title', $title)->delete(); //? to delete all posts with a certain title
+        //Post::where('title', $title)->delete(); //? to delete all posts with a certain title... but model events won't occure
         return redirect()->route('posts.index');
     }
     // public function firstAction()//camelCase

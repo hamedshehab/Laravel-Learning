@@ -20,9 +20,9 @@
         </div>
     
         <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Post Creator</label>
-        <select name="postCreator" class="form-select" aria-label="Default select example">
+        <select name="post_creator" class="form-select" aria-label="Default select example">
             @foreach ($users as $user)
-                <option  value="{{$user['id']}}">{{$user['name']}}</option>
+                <option  value="{{$user->id}}" @if ($user->id == $post->user_id) selected @endif >{{$user->name}}</option>
             @endforeach
         </select>
 
