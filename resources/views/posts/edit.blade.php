@@ -4,19 +4,29 @@
 
 @section('content')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="mx-5">
     <FORM method="POST" action="{{route("posts.update", $post['id'])}}">
              @csrf 
              @method('PUT')
         {{-- ! IT IS MANDATORY TO PUT CSRF TO PREVENT SECURITY VULNERABILITIES --}}
         <div class="form-group mb-3">
-            <label for="title">Title</label>
+            <label for="title" >Title</label>
             <input name="title" type="text" class="form-control" id="title" placeholder="Title" value="{{$post['title']}}">
         </div>
     
         <div class="form-group mb-3">
             <label for="exampleFormDescription">Description</label>
-            <textarea name="description" class="form-control" id="exampleFormControlDescription" rows="3">{{$post['description']}}</textarea>
+            <textarea  name="description" class="form-control" id="exampleFormControlDescription" rows="3">{{$post['description']}}</textarea>
         </div>
     
         <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Post Creator</label>

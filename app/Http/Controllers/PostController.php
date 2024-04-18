@@ -49,6 +49,14 @@ class PostController extends Controller //StudlyCase
     public function store()
     {
 
+        request()->validate(
+            [
+                'title' => ['required', 'min:3'],
+                'description' => ['required'],
+                'post_creator' => ['required','exists:users,id']
+            ]
+            );
+
         // $request = request();
         // dd($request->title);
 
@@ -86,7 +94,14 @@ class PostController extends Controller //StudlyCase
 
     public function update($postid)
     {
- 
+        request()->validate(
+            [
+                'title' => ['required', 'min: 3'],
+                'description' => ['required'],
+                'post_creator' => ['required','exists:users,id']
+
+            ]
+        );
 
         $title = request()->title;
         $description = request()->description;
@@ -94,6 +109,9 @@ class PostController extends Controller //StudlyCase
         
         $post = Post::find($postid);              //?Database
   
+
+
+
         $post->update([
             'title'=> $title,
             'description'=> $description,
